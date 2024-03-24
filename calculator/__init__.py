@@ -5,6 +5,8 @@ class Calculator:
 
     def __init__(self):
         self.expression = ""
+        self.history = []
+
 
     def _ensure_is_digit(self, value: int | str):
         if isinstance(value, str):
@@ -38,26 +40,17 @@ class Calculator:
     def clear_expression(self):
         self.expression = ""  
 
-    def __init__(self):
-        # Your existing initialization code here
-        self.history = []  # Initialize an empty list to store history
-
     def add_to_history(self, expression, result):
         self.history.append(f"{expression} = {result}")
 
     def clear_history(self):
         self.history.clear()
 
-    # Update your compute_result or similar method to add successful calculations to history
-    def compute_result(self):
-        # Your existing result computation logic here
-        result = "some computation"  # Placeholder for actual computation result
-        self.add_to_history(self.expression, result)
-        return result
     
     def compute_result(self) -> Number:
         try:
             result = eval(self.expression)
+            self.add_to_history(self.expression, result)
             if isinstance(result, Number):
                 self.expression = str(result)
                 return result
@@ -67,3 +60,6 @@ class Calculator:
             expression = self.expression
             self.expression = ""
             raise ValueError("Invalid expression: " + expression) from e
+        
+    def get_history(self) -> list:
+        return self.history
