@@ -57,7 +57,7 @@ class CalculatorApp(App):
                 try:
                     result = self._calc.compute_result()
                     self._display.text = str(result)
-                    self.update_history_display()
+                    #self.update_history_display()
                 except ValueError as e:
                     self._display.text = "Error"
             
